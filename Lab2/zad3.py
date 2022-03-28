@@ -287,8 +287,6 @@ def main():
 
     # ESSSSSSSSSSSSSSSSSSSSSSSSSSSSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-    
-
     """ 3-regularny """
 
     # graph = nx.read_edgelist(path="./tests/3-regular_30_nodes_random_R", nodetype=int, data=(('R', float),))
@@ -305,28 +303,39 @@ def main():
     # electric_circuit_kirchhoff_laws(graph.copy(), 60, 80, 100, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 12, 24, 100, pos=pos)
 
+    """ Z mostem """
 
-    # graph = nx.grid_2d_graph(16, 10)
-    # graph = nx.convert_node_labels_to_integers(graph)
-    # # for u, v in graph.edges:
-    # #     graph[u][v]["R"] = randint(1, 99)
-    #
-    # nx.write_edgelist(graph, path="essa/grid_20x10", data=["R"])
+    G = nx.random_regular_graph(3, 10, seed=10)
+    H = nx.random_regular_graph(3, 10, seed=30)
+    map = {x - 10: x for x in range(10, 20)}
+    nx.relabel_nodes(H, mapping=map, copy=False)
 
+    print(G.nodes)
+    print(H.nodes)
+    print(G.edges.data())
+    print(H.edges.data())
+
+    F = nx.compose(G, H)
+
+    nx.draw(F, pos=nx.kamada_kawai_layout(F))
+    plt.show()
+
+
+    """ Siatka 2D """
 
     # graph = nx.read_edgelist(path="./tests/grid_5x5_random_R", nodetype=int, data=(('R', float),))
     # pos = nx.kamada_kawai_layout(graph)
-    # electric_circuit_nodal_analysis(graph.copy(), 0, 6, 100, show_node_labels=True, show_edge_labels=True, pos=pos)
-    # electric_circuit_nodal_analysis(graph.copy(), 8, 12, 100, show_node_labels=True, show_edge_labels=True, pos=pos)
-    # electric_circuit_nodal_analysis(graph.copy(), 3, 20, 100, show_node_labels=True, show_edge_labels=True, pos=pos)
-    # electric_circuit_nodal_analysis(graph.copy(), 4, 23, 100, show_node_labels=True, show_edge_labels=True, pos=pos)
-
-
+    # electric_circuit_nodal_analysis(graph.copy(), 0, 6, 100, show_edge_labels=True, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 8, 12, 100, show_edge_labels=True, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 3, 20, 100, show_edge_labels=True, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 4, 23, 100, show_edge_labels=True, pos=pos)
+    #
     # graph = nx.read_edgelist(path="./tests/grid_16x10", nodetype=int)
     # pos = nx.kamada_kawai_layout(graph)
     # electric_circuit_nodal_analysis(graph.copy(), 2, 43, 100, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 38, 121, 100, pos=pos)
 
+    """ Small world """
 
     # graph = nx.read_edgelist(path="./tests/small_world_40_nodes", nodetype=int)
     # pos = nx.circular_layout(graph)
@@ -334,6 +343,17 @@ def main():
     # electric_circuit_nodal_analysis(graph.copy(), 25, 37, 100, pos=pos, connection_style='arc3,rad=0.3')
     # electric_circuit_kirchhoff_laws(graph.copy(), 26, 30, 100, pos=pos, connection_style='arc3,rad=0.3')
     # electric_circuit_nodal_analysis(graph.copy(), 10, 30, 100, pos=pos, connection_style='arc3,rad=0.3')
+
+
+
+
+
+    # graph = nx.grid_2d_graph(16, 10)
+    # graph = nx.convert_node_labels_to_integers(graph)
+    # # for u, v in graph.edges:
+    # #     graph[u][v]["R"] = randint(1, 99)
+    #
+    # nx.write_edgelist(graph, path="essa/grid_20x10", data=["R"])
 
 
 if __name__ == "__main__":
