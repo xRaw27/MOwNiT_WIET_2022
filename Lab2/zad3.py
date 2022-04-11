@@ -231,67 +231,20 @@ def is_solution_correct(G, H, E):
 
 
 def main():
-    graph = nx.grid_2d_graph(2, 2)
-    # electric_circuit_kirchhoff_laws(graph, 0, 5, 100, connection_style='arc3', show_edge_labels=True, spring_iterations=1, seed=123)
+    """ Losowy """
 
-    # graph = nx.watts_strogatz_graph(30, 4, 0.2)
-    #
-    # # exit()
-    #
-    # for u, v in graph.edges:
-    #     graph[u][v]["spring_weight"] = 1
-    #     if min(abs(u - v), 31 - abs(u - v)) > 2:
-    #         graph[u][v]["spring_weight"] = 0
-    #
-    # electric_circuit_kirchhoff_laws(graph, 0, 15, 100, connection_style='arc3', spring_iterations=1000, seed=123)
-
-    # graph = nx.Graph()
-    # graph.add_nodes_from([0, 1, 2, 3])
-    # graph.add_edges_from([(1, 3, {"R": 1}), (2, 3, {"R": 2}), (1, 2, {"R": 1}), (1, 0, {"R": 2}), (2, 0, {"R": 1})])
-
-    # graph = nx.grid_2d_grap(5, 5)
-    # graph = nx.convert_node_labels_to_integers(graph)
-    #
-    # graph = nx.watts_strogatz_graph(30, 4, 0.1)
-    # nx.write_edgelist(graph, path="small_world_30_nodes", data=["R", "spring_weight"])
-    #
-    #
-    # graph = nx.random_regular_graph(3, 30)
-    # for u, v in graph.edges:
-    #     graph[u][v]["R"] = randint(1, 99)
-    #
-    # nx.write_edgelist(graph, path="essa/3-regular_30_nodes_random_R", data=["R", "spring_weight"])
-
-    # graph = nx.read_edgelist(path="3-regular_100_nodes",  data=(('R', float), ('spring_weight', float),))
-    # graph = nx.read_edgelist(path="3-regular_100_nodes", nodetype=int)
-    # graph = nx.read_edgelist(path="essa/3-regular_30_nodes_random_R", nodetype=int, data=(('R', float),))
-    # graph = nx.read_edgelist(path="3-regular_100_nodes")
-    # graph = nx.read_edgelist(path="essa/3-regular_100_nodes", nodetype=int)
-
-    # nx.write_edgelist(graph, path="essa/3-regular_100_nodes", data=["R", "spring_weight"])
-
-    # print(graph.edges.data())
-    # [print(x) for x in G.edges.data()]
-
-    # electric_circuit_kirchhoff_laws(graph, 0, 10, 100, show_edge_labels=True, seed=10)
-    # electric_circuit_kirchhoff_laws(graph, 0, 10, 100, seed=10)
-    # graph = nx.convert_node_labels_to_integers(graph)
-    # electric_circuit_kirchhoff_laws(graph, 0, 2, 100, seed=10)
-    # electric_circuit_kirchhoff_laws(graph, 0, 40, 100, seed=10)
-    # electric_circuit_kirchhoff_laws(graph, 0, 3, 14, spring_iterations=10000)
-
-    # G, H = electric_circuit_nodal_analysis(graph, 0, 10, 100)
-    # is_correct = is_solution_correct(G, H, 14)
-    #
-    # print("Czy poprawne: ", is_solution_correct(G, H, 14))
-
-    # ESSSSSSSSSSSSSSSSSSSSSSSSSSSSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    # graph = nx.read_edgelist(path="./tests/random_30_nodes_90_edges", nodetype=int)
+    # pos = nx.circular_layout(graph)
+    # electric_circuit_kirchhoff_laws(graph.copy(), 11, 21, 100, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 25, 27, 100, pos=pos)
+    # electric_circuit_kirchhoff_laws(graph.copy(), 1, 12, 100, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 6, 10, 100, pos=pos)
 
     """ 3-regularny """
 
     # graph = nx.read_edgelist(path="./tests/3-regular_30_nodes_random_R", nodetype=int, data=(('R', float),))
     # pos = nx.kamada_kawai_layout(graph)
-    # electric_circuit_kirchhoff_laws(graph.copy(), 12, 27, 100, show_node_labels=True, show_edge_labels=True, pos=pos)
+    # electric_circuit_kirchhoff_laws(graph.copy(), 12, 27, 100, show_edge_labels=True, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 3, 12, 100, show_edge_labels=True, pos=pos)
     # electric_circuit_kirchhoff_laws(graph.copy(), 2, 18, 100, show_edge_labels=True, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 10, 25, 100, show_edge_labels=True, pos=pos)
@@ -305,21 +258,10 @@ def main():
 
     """ Z mostem """
 
-    G = nx.random_regular_graph(3, 10, seed=10)
-    H = nx.random_regular_graph(3, 10, seed=30)
-    map = {x - 10: x for x in range(10, 20)}
-    nx.relabel_nodes(H, mapping=map, copy=False)
-
-    print(G.nodes)
-    print(H.nodes)
-    print(G.edges.data())
-    print(H.edges.data())
-
-    F = nx.compose(G, H)
-
-    nx.draw(F, pos=nx.kamada_kawai_layout(F))
-    plt.show()
-
+    # graph = nx.read_edgelist(path="./tests/2_graphs_with_bridge", nodetype=int)
+    # pos = nx.kamada_kawai_layout(graph, scale=2)
+    # electric_circuit_kirchhoff_laws(graph.copy(), 0, 21, 100, pos=pos)
+    # electric_circuit_nodal_analysis(graph.copy(), 25, 35, 100, show_edge_labels=True, pos=pos)
 
     """ Siatka 2D """
 
@@ -329,7 +271,7 @@ def main():
     # electric_circuit_nodal_analysis(graph.copy(), 8, 12, 100, show_edge_labels=True, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 3, 20, 100, show_edge_labels=True, pos=pos)
     # electric_circuit_nodal_analysis(graph.copy(), 4, 23, 100, show_edge_labels=True, pos=pos)
-    #
+
     # graph = nx.read_edgelist(path="./tests/grid_16x10", nodetype=int)
     # pos = nx.kamada_kawai_layout(graph)
     # electric_circuit_nodal_analysis(graph.copy(), 2, 43, 100, pos=pos)
@@ -343,17 +285,6 @@ def main():
     # electric_circuit_nodal_analysis(graph.copy(), 25, 37, 100, pos=pos, connection_style='arc3,rad=0.3')
     # electric_circuit_kirchhoff_laws(graph.copy(), 26, 30, 100, pos=pos, connection_style='arc3,rad=0.3')
     # electric_circuit_nodal_analysis(graph.copy(), 10, 30, 100, pos=pos, connection_style='arc3,rad=0.3')
-
-
-
-
-
-    # graph = nx.grid_2d_graph(16, 10)
-    # graph = nx.convert_node_labels_to_integers(graph)
-    # # for u, v in graph.edges:
-    # #     graph[u][v]["R"] = randint(1, 99)
-    #
-    # nx.write_edgelist(graph, path="essa/grid_20x10", data=["R"])
 
 
 if __name__ == "__main__":
