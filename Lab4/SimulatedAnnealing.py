@@ -60,6 +60,7 @@ class SimulatedAnnealing:
         self.plot()
         self.problem.plot(self.best_state)
         if save_animation:
+            self.problem.save_frame()
             return self.problem.animation()
 
     def plot(self):
