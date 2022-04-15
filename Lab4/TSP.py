@@ -4,8 +4,9 @@ from matplotlib.animation import FuncAnimation
 
 
 class TSP:
-    def __init__(self, n, list_of_points=None):
+    def __init__(self, n, list_of_points=None, arbitrary_swap=True):
         self.n = n
+        self.arbitrary_swap = arbitrary_swap
         self.x_range = None
         self.y_range = None
 
@@ -29,12 +30,31 @@ class TSP:
         self.x_range = (min_x, max_x)
         self.y_range = (min_y, max_y)
 
+    def points_from_other_tsp(self, tsp):
+        self.points = tsp.points
+        self.x_range = tsp.x_range
+        self.y_range = tsp.y_range
+
     def points_from_uniform_distribution(self, _min=-100, _max=100):
         self.points = np.random.uniform(_min, _max, (self.n, 2))
         self.set_range()
 
     def points_from_normal_distribution(self, mean=np.array([0, 0]), cov=np.array([[1, 0], [0, 1]])):
-        self.points = np.random.multivariate_normal(mean, cov, (self.n, 2))
+        self.points = np.random.multivariate_normal(mean, cov, self.n)
+        self.set_range()
+
+    def points_nine_separated_groups(self):
+        cov = np.array([[5, 0], [0, 5]])
+        k = self.n // 9
+        self.points = np.random.multivariate_normal(np.array([0, 0]), cov, k)
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([0, 50]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([0, 100]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([50, 0]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([50, 50]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([50, 100]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([100, 0]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([100, 50]), cov, k)))
+        self.points = np.concatenate((self.points, np.random.multivariate_normal(np.array([100, 100]), cov, k)))
         self.set_range()
 
     def make_move(self, mv):
@@ -43,9 +63,12 @@ class TSP:
 
     def random_move(self):
         a = np.random.randint(0, self.n)
-        b = np.random.randint(0, self.n)
-        while a == b:
+        if self.arbitrary_swap:
             b = np.random.randint(0, self.n)
+            while a == b:
+                b = np.random.randint(0, self.n)
+        else:
+            b = (a + np.random.choice([-1, 1])) % self.n
 
         self.permutation[a], self.permutation[b] = self.permutation[b], self.permutation[a]
         new_cost = self.cost()
@@ -75,7 +98,7 @@ class TSP:
             ax.annotate(i, tuple(self.points[i]))
 
         ax.plot(*cycle.T, 'o')
-        ax.set_title(f"Best state:\n permutation = {np.array2string(self.permutation, max_line_width=np.inf)}\n cost = {self.cost()}")
+        ax.set_title(f"Best state:\n permutation = {np.array2string(self.permutation, max_line_width=120)}\n cost = {self.cost()}")
         plt.show()
 
     def save_frame(self):
