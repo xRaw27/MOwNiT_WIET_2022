@@ -8,10 +8,10 @@ from unidecode import unidecode
 
 class TextPreprocessor:
     def __init__(self):
-        nltk.download('punkt')
-        nltk.download('wordnet')
-        nltk.download('omw-1.4')
-        nltk.download('stopwords')
+        # nltk.download('punkt')
+        # nltk.download('wordnet')
+        # nltk.download('omw-1.4')
+        # nltk.download('stopwords')
         self.porter_stemmer = PorterStemmer()
         self.stop = set([re.sub(r'[^\w\s]', '', unidecode(stopword)) for stopword in stopwords.words()])
 
