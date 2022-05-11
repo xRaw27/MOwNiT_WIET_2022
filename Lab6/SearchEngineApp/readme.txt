@@ -1,20 +1,18 @@
-Uruchomienie projektu:
+Uruchomienie projektu (windows powershell, przetestowane i powinno działać):
 
-Stworzenie virualenv i instalacja wymaganych bibliotek pythonowych:
+python -m venv venv
+Set-ExecutionPolicy Unrestricted -Scope Process
+.\venv\Scripts\activate
+pip install -r requirements.txt
+set FLASK_APP=app.py
+flask run
+
+
+Uruchomienie projektu (linux):
 
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-
-Uruchomienie frontendu:
-
-cd frontend
-npm install
-npm start
-
-Uruchomienie backendu:
-
-cd backend
 export FLASK_APP=app.py
 flask run
 
