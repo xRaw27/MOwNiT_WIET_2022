@@ -1,9 +1,17 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask import request, jsonify
-from SearchEngine import SearchEngine
+import sys
+sys.path.insert(0, './backend')
+from backend.SearchEngine import SearchEngine
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_folder="frontend/build/static", template_folder="frontend/build")
 search_engine = SearchEngine("150k", 150000)
+
+
+@app.route("/")
+def render():
+    return render_template('index.html')
 
 
 @app.route("/search_query", methods=['POST'])
