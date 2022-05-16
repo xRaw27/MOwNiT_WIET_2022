@@ -11,7 +11,7 @@ class TextPreprocessor:
         self.stop = set([re.sub(r'[^\w\s]', '', unidecode(stopword)) for stopword in stopwords.words()])
 
     def text_to_list_of_words(self, text):
-        # usunięcie znaków niealfanumerycznych
+        # non-alphanumeric characters removal
         text = re.sub(r'[^\w\s]', '', unidecode(text))
 
         # convert to lowercase, tokenization and stop words removal

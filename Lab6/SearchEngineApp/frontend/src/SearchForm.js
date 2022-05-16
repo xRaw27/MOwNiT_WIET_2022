@@ -6,12 +6,13 @@ import logo_small from './img/logo_small.svg';
 
 const SearchForm = (props) => {
     const [text, setText] = useState(props.data);
+    const [lowRankApprox, setLowRankApprox] = useState(props.lowRankApprox);
 
     const handleSubmit = (event) => {
         event.preventDefault()
         props.handler({
             "search_query": text,
-            "essa": "rigcz"
+            "low_rank_approx": lowRankApprox
         });
     };
 
@@ -27,18 +28,23 @@ const SearchForm = (props) => {
                         <img className="logo-img" onClick={refreshPage} src={logo_small} alt="Wyszukiwara"/>
                     </Col>
 
-                    <Col xs="8" md="4" lg="6" style={{paddingTop: "16px"}}>
+                    <Col xs="8" md="4" lg="5" style={{paddingTop: "16px"}}>
                         <Form.Group className="mb-3" controlId="formText">
                             <Form.Control
                                 type="text"
-                                placeholder="Kto pytal?"
+                                placeholder=""
                                 value={text}
                                 onChange={e => setText(e.target.value)}
                             />
                         </Form.Group>
                     </Col>
-                    <Col xs="6" md="3" lg="2">
-                        <Form.Check type="checkbox" label="Low rank approx."/>
+                    <Col xs="6" md="3" lg="3">
+                        <Form.Check
+                            type="switch"
+                            label="Low rank approx."
+                            checked={lowRankApprox}
+                            onChange={() => setLowRankApprox(!lowRankApprox)}
+                        />
                     </Col>
 
                     <Col xs="6" md="2" lg="2">
@@ -60,7 +66,7 @@ const SearchForm = (props) => {
             <Form.Group className="mb-3" controlId="formText">
                 <Form.Control
                     type="text"
-                    placeholder="Kto pytal?"
+                    placeholder=""
                     value={text}
                     onChange={e => setText(e.target.value)}
                 />
@@ -69,7 +75,12 @@ const SearchForm = (props) => {
             <Container>
                 <Row className="justify-content-center align-items-center">
                     <Col xs="12" lg="6">
-                        <Form.Check type="checkbox" label="Low rank approx."/>
+                        <Form.Check
+                            type="switch"
+                            label="Low rank approx."
+                            checked={lowRankApprox}
+                            onChange={() => setLowRankApprox(!lowRankApprox)}
+                        />
                     </Col>
                     <Col xs="12" lg="1" style={{height: "10px"}}>
                     </Col>

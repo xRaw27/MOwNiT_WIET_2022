@@ -8,20 +8,20 @@ from nltk.downloader import download
 
 
 class SearchEngine:
-    def __init__(self, data_name, data_size):
+    def __init__(self, data_name, data_size, low_rank_approx=False, k=0):
         download('punkt')
         download('wordnet')
         download('omw-1.4')
         download('stopwords')
         self.dataset = load_dataset("wikipedia", "20220301.simple")["train"]
         self.search_data = SearchData()
-        self.load_data(data_name, data_size)
+        self.load_data(data_name, data_size, low_rank_approx, k)
         self.k = len(self.search_data.terms)
         self.text_preprocessor = TextPreprocessor()
 
-    def load_data(self, data_name, data_size):
-        if not self.search_data.load_data(data_name):
-            self.search_data.create_and_save(self.dataset[:data_size], data_size, data_name)
+    def load_data(self, data_name, data_size, low_rank_approx, k):
+        if not self.search_data.load_data(data_name, low_rank_approx, k):
+            self.search_data.create_and_save(self.dataset[:data_size], data_size, data_name, low_rank_approx, k)
 
     def query(self, text):
         list_of_words = self.text_preprocessor.text_to_list_of_words(text)
@@ -43,8 +43,6 @@ class SearchEngine:
             q[row, col] = (0.5 + 0.5 * q[row, col] / max_f) * idf_value
 
         q /= norm(q)
-
-        print(q)
 
         # finding non-zero values in sparse result vector and sorting result by correlation desc
         result = find(q @ self.search_data.matrix)

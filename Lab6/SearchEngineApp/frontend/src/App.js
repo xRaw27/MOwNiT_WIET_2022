@@ -8,10 +8,12 @@ import {Container, Row, Col} from 'react-bootstrap'
 function App() {
     const [view, setView] = useState(0);
     const [searchQuery, setSearchQuery] = useState("")
+    const [lowRankApprox, setLowRankApprox] = useState(false)
     const [searchResult, setSearchResult] = useState([])
 
     const handler = (inputData) => {
         setSearchQuery(inputData.search_query)
+        setLowRankApprox(inputData.low_rank_approx)
         console.log(inputData)
         sendQuery(inputData)
     }
@@ -41,7 +43,7 @@ function App() {
                     <Container className="centred-browser-from-wrapper">
                         <Row className="justify-content-center">
                             <Col xs="6">
-                                <SearchForm handler={handler} data={searchQuery} inline={false}/>
+                                <SearchForm handler={handler} data={searchQuery} lowRankApprox={lowRankApprox} inline={false}/>
                             </Col>
                         </Row>
                     </Container>
@@ -51,7 +53,7 @@ function App() {
                 <Container className="centred-browser-from-wrapper">
                     <Row className="justify-content-center">
                         <Col xs="10">
-                            <SearchForm handler={handler} data={searchQuery} inline={true}/>
+                            <SearchForm handler={handler} data={searchQuery} lowRankApprox={lowRankApprox} inline={true}/>
                         </Col>
                     </Row>
                     <Row className="justify-content-center">
