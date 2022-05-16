@@ -29,7 +29,7 @@ flask run
  - Do zapisania obliczonych wcześniej danych na dysku wykorzystano narzędnie pickle.
 
 ### Działanie aplikacji
-Przy domyślnych ustawieniach tworzone są 2 macierze. Pierwsza z nich obejmuje 150 tyś. artykułów z wikipedii oraz x termów.
+Przy domyślnych ustawieniach tworzone są 2 macierze. Pierwsza z nich obejmuje 150 tyś. artykułów z wikipedii oraz 500 tyś. termów.
 Macierz ta jest generowana przy pierwszym uruchomieniu programu i następnie jest zapisywana w folderze data.
 Druga macierz zawiera 5000 artykułów oraz 100 tyś. termów i również jest generowana tylko przy pierwszym uruchomieniu, ale w jej przypadku
 przy każdym uruchomieniu aplikacji na jej podstawie tworzona jest przy użyciu SVD i low rank approximation macierz
