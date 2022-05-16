@@ -8,7 +8,7 @@ from unidecode import unidecode
 class TextPreprocessor:
     def __init__(self):
         self.porter_stemmer = PorterStemmer()
-        self.stop = set([re.sub(r'[^\w\s]', '', unidecode(stopword)) for stopword in stopwords.words()])
+        self.stop = set([re.sub(r'[^\w\s]', '', unidecode(stopword)) for stopword in stopwords.words('english')])
 
     def text_to_list_of_words(self, text):
         # non-alphanumeric characters removal
