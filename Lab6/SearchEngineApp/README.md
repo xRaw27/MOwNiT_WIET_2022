@@ -39,6 +39,20 @@ Uwaga: Czas pierwszego uruchomienia wynosi około 10 minut i może być jeszcze 
 
 ### Przykłady działania dla 150 tyś. artykułów, bez low rank approximation
 
+#### Przykład 1:
+![image info](./screenshots/example_150k_1.png)
+
+#### Przykład 2:
+![image info](./screenshots/example_150k_2.png)
+
+#### Przykład 3:
+![image info](./screenshots/example_150k_3.png)
+
+#### Przykład 4:
+![image info](./screenshots/example_150k_4.png)
+
+#### Przykład 5:
+![image info](./screenshots/example_150k_5.png)
 
 
 ### Porównanie działania programu bez usuwania szumu i z usuwaniem szumu
@@ -48,17 +62,20 @@ Uwagi:
 
 #### Przykład 1:
 ![image info](./screenshots/example_1.png)
+
 ![image info](./screenshots/example_1_low_rank_approx.png)
 
 #### Przykład 2:
 ![image info](./screenshots/example_2.png)
+
 ![image info](./screenshots/example_2_low_rank_approx.png)
 
 #### Przykład 3:
 ![image info](./screenshots/example_3.png)
+
 ![image info](./screenshots/example_3_low_rank_approx.png)
 
-Wnioski:
+#### Wnioski:
  - W przypadku zapytań, dla których otrzymano mało wyników, po zastosowaniu low rank approximation, liczba otrzymanych wyników zwiększyła się i występują wśród nich artykuły, które nie zawierały wyszukiwanych słów, ale są w powien sposób z nimi powiązane. Najlepiej widać to dla zapytania 'wisła'. 
  - Dla zapytań, które miały dużo wyników bez low rank approximation, nie widać tak dużej różnicy w rezultatach.
 
